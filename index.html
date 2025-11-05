@@ -1,1 +1,1031 @@
-<!DOCTYPE html> <html lang="tr"> <head> <meta charset="UTF-8"> <meta name="viewport" content="width=device-width, initial-scale=1.0"> <title>Tıbbi Terminoloji Kelime Avı</title> <style> @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap'); :root { --primary-blue: #007bff; --light-blue: #e0f2f7; --dark-blue: #0056b3; --text-color: #333; --grid-bg: #f9f9f9; --found-color: #28a745; --wrong-color: #dc3545; --hover-color: #a7d9ef; --select-color: #89cff0; --cell-border: #ccc; --shadow-light: rgba(0, 0, 0, 0.1); --shadow-strong: rgba(0, 0, 0, 0.2); } body { font-family: 'Roboto', sans-serif; margin: 0; padding: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 100vh; background: linear-gradient(135deg, var(--light-blue) 0%, #ffffff 50%, var(--light-blue) 100%); background-size: 200% 200%; animation: gradient-animation 10s ease infinite; color: var(--text-color); overflow-x: hidden; perspective: 1000px; } @keyframes gradient-animation { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } } </style> </head> <body> <div class='container'><h1>Tıbbi Terminoloji Kelime Avı</h1></div></body></html>
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tıbbi Terminoloji Kelime Avı</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+        :root {
+            --primary-blue: #007bff;
+            --light-blue: #e0f2f7;
+            --dark-blue: #0056b3;
+            --text-color: #333;
+            --grid-bg: #f9f9f9;
+            --found-color: #28a745;
+            --wrong-color: #dc3545;
+            --hover-color: #a7d9ef;
+            --select-color: #89cff0;
+            --cell-border: #ccc;
+            --shadow-light: rgba(0, 0, 0, 0.1);
+            --shadow-strong: rgba(0, 0, 0, 0.2);
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif; /* Genel bir font */
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            background: linear-gradient(135deg, var(--light-blue) 0%, #ffffff 50%, var(--light-blue) 100%);
+            background-size: 200% 200%;
+            animation: gradient-animation 10s ease infinite;
+            color: var(--text-color);
+            overflow-x: hidden;
+            perspective: 1000px; /* 3D efekt için */
+        }
+
+        @keyframes gradient-animation {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Polyhaven dokusu için placeholder. Kendi base64 kodlu görselinizi buraya ekleyebilirsiniz: */
+        /* body::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-image: url('data:image/jpeg;base64,PASTE_YOUR_BASE64_IMAGE_DATA_HERE');
+            background-size: cover;
+            background-repeat: no-repeat;
+            opacity: 0.1; 
+            filter: blur(5px);
+            z-index: -1;
+        } */
+
+        .container {
+            background-color: #ffffff;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px var(--shadow-strong);
+            padding: 30px;
+            text-align: center;
+            max-width: 90%;
+            width: 800px;
+            box-sizing: border-box;
+            transform-style: preserve-3d;
+            transform: rotateX(5deg) rotateY(0deg) translateZ(-50px);
+            transition: transform 0.5s ease;
+        }
+
+        h1 {
+            color: var(--dark-blue);
+            margin-bottom: 20px;
+            font-weight: 700;
+            text-shadow: 1px 1px 2px var(--shadow-light);
+        }
+
+        .screen {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+        }
+        .screen.active {
+            display: flex;
+        }
+
+        #start-screen h2 {
+            color: var(--primary-blue);
+            margin-bottom: 25px;
+        }
+        #start-screen p {
+            font-size: 1.1em;
+            line-height: 1.6;
+            margin-bottom: 30px;
+        }
+
+        button {
+            background-color: var(--primary-blue);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1.1em;
+            font-weight: bold;
+            transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+            margin: 10px;
+            box-shadow: 0 4px 10px var(--shadow-light);
+        }
+        button:hover {
+            background-color: var(--dark-blue);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px var(--shadow-strong);
+        }
+        button:active {
+            transform: translateY(0);
+            box-shadow: 0 2px 5px var(--shadow-light);
+        }
+        button:disabled {
+            background-color: #cccccc;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        #game-header {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        #game-header > div {
+            flex: 1;
+            padding: 10px;
+            background-color: var(--light-blue);
+            border-radius: 10px;
+            margin: 5px;
+            box-shadow: 0 2px 5px var(--shadow-light);
+            font-weight: bold;
+        }
+        #game-header span {
+            color: var(--dark-blue);
+        }
+
+        #game-area {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+        }
+
+        #word-grid-container {
+            width: 100%;
+            max-width: 500px; /* Sabit genişlik */
+            margin: 20px auto;
+            position: relative;
+            transform-style: preserve-3d;
+            transform: rotateX(10deg) translateZ(0px); /* Grid için 3D perspektif */
+            transition: transform 0.5s ease;
+            box-shadow: 0 15px 40px var(--shadow-strong);
+            border-radius: 10px;
+            background-color: var(--grid-bg);
+            border: 2px solid var(--cell-border);
+        }
+
+        #word-grid {
+            display: grid;
+            grid-template-columns: repeat(10, 1fr);
+            grid-template-rows: repeat(10, 1fr);
+            width: 100%;
+            padding: 5px;
+            box-sizing: border-box;
+        }
+
+        .grid-cell {
+            width: 100%;
+            padding-bottom: 100%; /* Kare hücreler için */
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: var(--grid-bg);
+            border: 1px solid var(--cell-border);
+            border-radius: 5px;
+            font-size: 1.2em;
+            font-weight: bold;
+            text-transform: uppercase;
+            cursor: pointer;
+            user-select: none;
+            transition: background-color 0.2s ease, transform 0.1s ease, box-shadow 0.2s ease;
+            transform-style: preserve-3d;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1), inset 0 1px 3px rgba(255,255,255,0.7); /* Hafif kabartma */
+        }
+        .grid-cell > span { /* Harf içeriği için */
+            position: absolute;
+            transform: translateZ(5px); /* Harfe hafif derinlik */
+        }
+
+        .grid-cell.hover {
+            background-color: var(--hover-color);
+            transform: translateY(-2px) translateZ(5px);
+            box-shadow: 0 5px 12px var(--shadow-light), inset 0 1px 3px rgba(255,255,255,0.7);
+        }
+        .grid-cell.selected {
+            background-color: var(--select-color);
+            transform: translateY(-3px) translateZ(8px);
+            box-shadow: 0 6px 15px var(--shadow-strong), inset 0 2px 5px rgba(255,255,255,0.8);
+        }
+        .grid-cell.found {
+            background-color: var(--found-color);
+            color: white;
+            box-shadow: 0 3px 8px var(--found-color), inset 0 1px 3px rgba(255,255,255,0.7);
+            transform: rotateX(0deg) translateZ(0px); /* Bulunduğunda normalleşsin */
+        }
+        .grid-cell.wrong {
+            background-color: var(--wrong-color);
+            color: white;
+            box-shadow: 0 3px 8px var(--wrong-color), inset 0 1px 3px rgba(255,255,255,0.7);
+            animation: shake 0.3s ease-in-out;
+        }
+
+        @keyframes shake {
+            0% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            50% { transform: translateX(5px); }
+            75% { transform: translateX(-5px); }
+            100% { transform: translateX(0); }
+        }
+
+        #word-list-container {
+            width: 100%;
+            max-width: 500px;
+            margin-top: 20px;
+        }
+        #word-list-container h3 {
+            color: var(--dark-blue);
+            margin-bottom: 10px;
+        }
+        #found-words {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 8px;
+            background-color: var(--grid-bg);
+            padding: 15px;
+            border-radius: 10px;
+            min-height: 80px;
+            box-shadow: inset 0 0 10px var(--shadow-light);
+        }
+        .word-item {
+            background-color: #eee;
+            padding: 8px 12px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            font-weight: bold;
+            color: var(--text-color);
+            transition: background-color 0.3s ease;
+        }
+        .word-item.found {
+            background-color: var(--found-color);
+            color: white;
+            text-decoration: line-through;
+            opacity: 0.7;
+        }
+
+        #controls {
+            margin-top: 30px;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        #end-screen h2 {
+            color: var(--primary-blue);
+            margin-bottom: 15px;
+        }
+        #end-screen p {
+            font-size: 1.1em;
+            margin-bottom: 25px;
+        }
+        #leaderboard-entry {
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+        #leaderboard-entry input {
+            padding: 10px;
+            margin-right: 10px;
+            border: 1px solid var(--cell-border);
+            border-radius: 5px;
+            font-size: 1em;
+            box-shadow: inset 0 1px 3px var(--shadow-light);
+        }
+        #leaderboard-entry button {
+            margin: 0;
+        }
+
+        #leaderboard-modal {
+            display: none;
+            position: fixed;
+            z-index: 100;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.4);
+            justify-content: center;
+            align-items: center;
+        }
+        #leaderboard-modal.active {
+            display: flex;
+        }
+
+        .leaderboard-content {
+            background-color: #fefefe;
+            margin: auto;
+            padding: 30px;
+            border: 1px solid #888;
+            width: 80%;
+            max-width: 600px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px var(--shadow-strong);
+            position: relative;
+            transform-style: preserve-3d;
+            transform: rotateX(5deg) translateZ(0);
+        }
+        .leaderboard-content h3 {
+            margin-top: 0;
+            color: var(--dark-blue);
+            text-shadow: 1px 1px 2px var(--shadow-light);
+        }
+        .leaderboard-content ol {
+            padding: 0;
+            list-style-position: inside;
+            font-size: 1.1em;
+            text-align: left;
+        }
+        .leaderboard-content ol li {
+            padding: 8px 0;
+            border-bottom: 1px dashed #eee;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .leaderboard-content ol li:last-child {
+            border-bottom: none;
+        }
+        .leaderboard-content .close-button {
+            position: absolute;
+            top: 15px;
+            right: 25px;
+            color: #aaa;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: color 0.3s ease;
+            background: none;
+            border: none;
+            padding: 0;
+            margin: 0;
+        }
+        .leaderboard-content .close-button:hover,
+        .leaderboard-content .close-button:focus {
+            color: var(--dark-blue);
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+                transform: rotateX(2deg) translateZ(-20px);
+            }
+            h1 {
+                font-size: 1.8em;
+            }
+            button {
+                font-size: 1em;
+                padding: 10px 20px;
+            }
+            #game-header {
+                flex-direction: column;
+                align-items: center;
+            }
+            #game-header > div {
+                width: 90%;
+            }
+            .grid-cell {
+                font-size: 1em;
+            }
+            #found-words {
+                min-height: 60px;
+                padding: 10px;
+            }
+            .word-item {
+                font-size: 0.8em;
+                padding: 6px 10px;
+            }
+            #word-grid-container {
+                transform: rotateX(5deg) translateZ(0px);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 15px;
+            }
+            h1 {
+                font-size: 1.5em;
+            }
+            .grid-cell {
+                font-size: 0.8em;
+            }
+            #leaderboard-entry input {
+                width: 70%;
+                margin-bottom: 10px;
+                margin-right: 0;
+            }
+            #leaderboard-entry button {
+                width: 80%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Tıbbi Terminoloji Kelime Avı</h1>
+
+        <!-- Başlangıç Ekranı -->
+        <div id="start-screen" class="screen active">
+            <h2>Hoş Geldin!</h2>
+            <p>Süre dolmadan tüm tıbbi terimleri bulabilir misin? Gizli kelimeleri yatay, dikey veya çapraz olarak bulmak için harflere tıkla ve sürükle!</p>
+            <button id="start-game-button">Oyunu Başlat</button>
+            <button id="show-leaderboard-button">Liderlik Tablosu</button>
+        </div>
+
+        <!-- Oyun Ekranı -->
+        <div id="game-screen" class="screen">
+            <div id="game-header">
+                <div>Seviye: <span id="level-display">1</span></div>
+                <div>Puan: <span id="score-display">0</span></div>
+                <div>Süre: <span id="timer-display">00:00</span></div>
+            </div>
+
+            <div id="game-area">
+                <div id="word-grid-container">
+                    <div id="word-grid">
+                        <!-- Izgara hücreleri buraya JS ile yüklenecek -->
+                    </div>
+                </div>
+
+                <div id="word-list-container">
+                    <h3>Bulunacak Kelimeler:</h3>
+                    <div id="found-words">
+                        <!-- Bulunan kelimeler buraya JS ile yüklenecek -->
+                    </div>
+                </div>
+            </div>
+
+            <div id="controls">
+                <button id="hint-button">İpucu Kullan (-50 Puan)</button>
+                <button id="skip-level-button">Seviye Atla (+0 Puan)</button>
+                <button id="new-game-button">Yeni Oyun</button>
+            </div>
+        </div>
+
+        <!-- Bitiş Ekranı -->
+        <div id="end-screen" class="screen">
+            <h2>Oyun Bitti!</h2>
+            <p id="final-message"></p>
+            <div id="leaderboard-entry">
+                <input type="text" id="player-name-input" placeholder="Adınız" maxlength="15">
+                <button id="save-score-button">Skoru Kaydet</button>
+            </div>
+            <button id="play-again-button">Tekrar Oyna</button>
+            <button id="show-leaderboard-from-end-button">Liderlik Tablosu</button>
+        </div>
+    </div>
+
+    <!-- Liderlik Tablosu Modalı -->
+    <div id="leaderboard-modal" class="modal">
+        <div class="leaderboard-content">
+            <button class="close-button">&times;</button>
+            <h3>Liderlik Tablosu</h3>
+            <ol id="leaderboard-list">
+                <!-- Liderlik listesi buraya yüklenecek -->
+            </ol>
+        </div>
+    </div>
+
+    <audio id="correct-sound" src="data:audio/wav;base64,UklGRiQAAABXQVZFZm10IBAAAAABAAEARKwAAIhYAQACABAAZGF0YQAAAAD//w=="></audio> <!-- Basit bir bip sesi -->
+    <audio id="wrong-sound" src="data:audio/wav;base64,UklGRhYAAABXQVZFZm10IBAAAAABAAEARKwAAIhYAQACABAAZGF0YQAAAD//w=="></audio> <!-- Basit bir hata sesi -->
+
+
+    <script>
+        const wordList = [
+            "hematoloji", "nefroloji", "kardiyak", "dermis", "uterus", "patoloji", "gastritis", "mikroskopi",
+            "anestezi", "obstetrik", "ektopik", "prenatal", "postpartum", "laktasyon", "perinatal", "plasenta",
+            "embriyo", "sitoloji", "hipotermi", "metabolizma", "nöroloji", "onkoloji", "pediatri", "endokrin",
+            "septisemi", "bradikardi", "taşikardi", "epizyotomi", "cerrahi", "analjezik", "farmakoloji",
+            "diagnostik", "terapi", "rehabilitasyon", "semptom", "ameliyat", "enfeksiyon", "immünoloji",
+            "fizyoloji", "genetik", "biyopsi", "radyoloji", "endoskopi", "ultrason", "manyetikrezonans",
+            "antibiyotik", "aşı", "iskemi", "aritmi", "siyanotik", "apendisit", "bronşit", "kolit", "dermatit",
+            "hepatit", "pnömoni", "osteoporoz", "hipertansiyon", "hipotansiyon", "diyabet", "kanser",
+            "bakteri", "virüs", "fungus", "parazit", "antikor", "antijen", "biyokimya", "histoloji", "epidemi",
+            "pandemi", "endemi", "aşılama", "konsültasyon", "reçete", "prognosis", "anamnez", "etiyoloji",
+            "patogenez", "sendrom", "komplikasyon", "fistül", "abse", "kist", "tümör", "benign", "malign"
+        ];
+
+        const GRID_SIZE = 10;
+        const MAX_LEVEL = 100;
+        const WORDS_PER_LEVEL = 10; // Her seviyede bulunacak kelime sayısı
+
+        let currentGrid = [];
+        let currentWords = [];
+        let foundWords = [];
+        let score = 0;
+        let gameTime = 0;
+        let timerInterval;
+        let level = 1;
+        let leaderboard = [];
+
+        let isSelecting = false;
+        let selectedCells = [];
+        let startCell = null;
+
+        // Ses efektleri
+        const correctSound = document.getElementById('correct-sound');
+        const wrongSound = document.getElementById('wrong-sound');
+
+        // UI Elementleri
+        const startScreen = document.getElementById('start-screen');
+        const gameScreen = document.getElementById('game-screen');
+        const endScreen = document.getElementById('end-screen');
+        const wordGridElement = document.getElementById('word-grid');
+        const foundWordsElement = document.getElementById('found-words');
+        const scoreDisplay = document.getElementById('score-display');
+        const timerDisplay = document.getElementById('timer-display');
+        const levelDisplay = document.getElementById('level-display');
+        const finalMessage = document.getElementById('final-message');
+        const playerNameInput = document.getElementById('player-name-input');
+        const leaderboardModal = document.getElementById('leaderboard-modal');
+        const leaderboardList = document.getElementById('leaderboard-list');
+
+        // Event Listener'lar
+        document.getElementById('start-game-button').addEventListener('click', () => startGame(1));
+        document.getElementById('new-game-button').addEventListener('click', () => startGame(1));
+        document.getElementById('hint-button').addEventListener('click', giveHint);
+        document.getElementById('skip-level-button').addEventListener('click', skipLevel);
+        document.getElementById('play-again-button').addEventListener('click', () => startGame(1));
+        document.getElementById('save-score-button').addEventListener('click', savePlayerScore);
+        document.getElementById('show-leaderboard-button').addEventListener('click', showLeaderboard);
+        document.getElementById('show-leaderboard-from-end-button').addEventListener('click', showLeaderboard);
+        leaderboardModal.querySelector('.close-button').addEventListener('click', hideLeaderboard);
+
+        wordGridElement.addEventListener('mousedown', handleMouseDown);
+        wordGridElement.addEventListener('mousemove', handleMouseMove);
+        wordGridElement.addEventListener('mouseup', handleMouseUp);
+        wordGridElement.addEventListener('mouseleave', handleMouseUp); // Grid dışına çıkınca seçimi bırak
+
+        // Yardımcı Fonksiyonlar
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+            return array;
+        }
+
+        function getRandomInt(min, max) {
+            return Math.floor(Math.random() * (max - min + 1)) + min;
+        }
+
+        function showScreen(screenId) {
+            document.querySelectorAll('.screen').forEach(screen => {
+                screen.classList.remove('active');
+            });
+            document.getElementById(screenId).classList.add('active');
+        }
+
+        function startGame(startLevel) {
+            level = startLevel;
+            score = 0;
+            gameTime = 0;
+            loadLeaderboard();
+            initGame(level);
+            showScreen('game-screen');
+            startTimer();
+        }
+
+        function initGame(currentLevel) {
+            if (currentLevel > MAX_LEVEL) {
+                endGame(true); // Tüm seviyeler tamamlandı
+                return;
+            }
+
+            level = currentLevel;
+            levelDisplay.textContent = level;
+            foundWords = [];
+            currentGrid = Array.from({ length: GRID_SIZE }, () => Array(GRID_SIZE).fill(''));
+
+            const wordsToPlace = selectWordsForLevel(level);
+            currentWords = wordsToPlace.map(w => w.toUpperCase()); // Kelimeleri büyük harf yap
+            
+            // Grid'i kelimelerle doldur
+            placeWords(wordsToPlace, currentGrid);
+            fillEmptyCells(currentGrid);
+            renderGrid();
+            renderFoundWords();
+            updateScoreDisplay();
+        }
+
+        function selectWordsForLevel(currentLevel) {
+            const minLength = 4 + Math.floor((currentLevel - 1) / 10); // Her 10 seviyede kelime uzunluğu artar
+            const maxLength = minLength + 5; // Maksimum uzunluk
+            
+            // Uzunluk kriterine uyan kelimeleri filtrele
+            let availableWords = wordList.filter(word => word.length >= minLength && word.length <= maxLength);
+
+            // Eğer yeterli kelime yoksa, uzunluk sınırını esnet
+            if (availableWords.length < WORDS_PER_LEVEL * 2) { // Daha fazla kelimeye ihtiyacımız olursa
+                availableWords = wordList.filter(word => word.length >= Math.max(2, minLength - 2) && word.length <= maxLength + 5);
+            }
+            
+            shuffleArray(availableWords);
+            return availableWords.slice(0, WORDS_PER_LEVEL);
+        }
+
+        function placeWords(words, grid) {
+            const directions = [
+                [0, 1],   // Yatay
+                [1, 0],   // Dikey
+                [1, 1],   // Çapraz (aşağı-sağ)
+                [1, -1],  // Çapraz (aşağı-sol)
+                [0, -1],  // Yatay (geri)
+                [-1, 0],  // Dikey (yukarı)
+                [-1, -1], // Çapraz (yukarı-sol)
+                [-1, 1]   // Çapraz (yukarı-sağ)
+            ];
+
+            let placedCount = 0;
+            for (const word of words) {
+                let placed = false;
+                let attempts = 0;
+                while (!placed && attempts < 100) { // Her kelime için 100 deneme
+                    const row = getRandomInt(0, GRID_SIZE - 1);
+                    const col = getRandomInt(0, GRID_SIZE - 1);
+                    const [dr, dc] = directions[getRandomInt(0, directions.length - 1)];
+
+                    if (canPlaceWord(word, row, col, dr, dc, grid)) {
+                        for (let i = 0; i < word.length; i++) {
+                            const r = row + i * dr;
+                            const c = col + i * dc;
+                            grid[r][c] = word[i].toUpperCase();
+                        }
+                        placed = true;
+                        placedCount++;
+                    }
+                    attempts++;
+                }
+            }
+             // Eğer yeterli kelime yerleşmediyse, daha az kelimeyle devam et
+             if (placedCount < WORDS_PER_LEVEL / 2 && level > 1) { // İlk seviyede değilsek ve çok az kelime yerleştiyse
+                console.warn(`Uyarı: Seviye ${level} için yeterli kelime yerleştirilemedi. Daha az kelimeyle devam ediliyor.`);
+             }
+        }
+
+        function canPlaceWord(word, row, col, dr, dc, grid) {
+            for (let i = 0; i < word.length; i++) {
+                const r = row + i * dr;
+                const c = col + i * dc;
+
+                if (r < 0 || r >= GRID_SIZE || c < 0 || c >= GRID_SIZE) {
+                    return false; // Sınır dışı
+                }
+                if (grid[r][c] !== '' && grid[r][c] !== word[i].toUpperCase()) {
+                    return false; // Çakışma var
+                }
+            }
+            return true;
+        }
+
+        function fillEmptyCells(grid) {
+            const alphabet = "ABCÇDEFGĞHIİJKLMNOÖPRSŞTUÜVYZ";
+            for (let r = 0; r < GRID_SIZE; r++) {
+                for (let c = 0; c < GRID_SIZE; c++) {
+                    if (grid[r][c] === '') {
+                        grid[r][c] = alphabet[getRandomInt(0, alphabet.length - 1)];
+                    }
+                }
+            }
+        }
+
+        function renderGrid() {
+            wordGridElement.innerHTML = '';
+            currentGrid.forEach((row, rowIndex) => {
+                row.forEach((char, colIndex) => {
+                    const cell = document.createElement('div');
+                    cell.classList.add('grid-cell');
+                    cell.dataset.row = rowIndex;
+                    cell.dataset.col = colIndex;
+                    cell.innerHTML = `<span>${char}</span>`;
+                    wordGridElement.appendChild(cell);
+                });
+            });
+        }
+
+        function renderFoundWords() {
+            foundWordsElement.innerHTML = '';
+            currentWords.forEach(word => {
+                const wordItem = document.createElement('div');
+                wordItem.classList.add('word-item');
+                wordItem.textContent = word;
+                if (foundWords.includes(word)) {
+                    wordItem.classList.add('found');
+                }
+                foundWordsElement.appendChild(wordItem);
+            });
+
+            if (foundWords.length === currentWords.length && currentWords.length > 0) {
+                // Tüm kelimeler bulunduğunda otomatik olarak bir sonraki seviyeye geç
+                setTimeout(() => {
+                    alert(`Seviye ${level} Tamamlandı! Sonraki Seviyeye Geçiliyor...`);
+                    level++;
+                    if (level <= MAX_LEVEL) {
+                        initGame(level);
+                    } else {
+                        endGame(true); // Oyun bitti, tüm seviyeler tamamlandı
+                    }
+                }, 1000);
+            }
+        }
+
+        function updateScoreDisplay() {
+            scoreDisplay.textContent = score;
+        }
+
+        function startTimer() {
+            clearInterval(timerInterval);
+            timerInterval = setInterval(() => {
+                gameTime++;
+                const minutes = String(Math.floor(gameTime / 60)).padStart(2, '0');
+                const seconds = String(gameTime % 60).padStart(2, '0');
+                timerDisplay.textContent = `${minutes}:${seconds}`;
+            }, 1000);
+        }
+
+        function stopTimer() {
+            clearInterval(timerInterval);
+        }
+
+        function giveHint() {
+            if (score < 50) {
+                alert("İpucu için yeterli puanınız yok! (En az 50 puan)");
+                return;
+            }
+
+            const unfound = currentWords.filter(word => !foundWords.includes(word));
+            if (unfound.length === 0) {
+                alert("Zaten tüm kelimeleri buldunuz!");
+                return;
+            }
+
+            score -= 50;
+            updateScoreDisplay();
+
+            const hintWord = unfound[getRandomInt(0, unfound.length - 1)];
+            
+            // Hint kelimesinin ilk harfini bul ve vurgula
+            for (let r = 0; r < GRID_SIZE; r++) {
+                for (let c = 0; c < GRID_SIZE; c++) {
+                    if (currentGrid[r][c] === hintWord[0].toUpperCase()) {
+                        const cell = document.querySelector(`.grid-cell[data-row="${r}"][data-col="${c}"]`);
+                        if (cell && !cell.classList.contains('found')) {
+                            cell.style.backgroundColor = 'yellow';
+                            setTimeout(() => {
+                                cell.style.backgroundColor = ''; // Rengi geri al
+                            }, 1000);
+                            return; // İlk bulunan harfi vurgula ve çık
+                        }
+                    }
+                }
+            }
+        }
+
+        function skipLevel() {
+            if (level < MAX_LEVEL) {
+                level++;
+                initGame(level);
+                // Puan sıfırlanmaz, süre sıfırlanmaz
+                alert(`Seviye Atlandı! Yeni seviye: ${level}`);
+            } else {
+                endGame(true); // Tüm seviyeler tamamlandı
+            }
+        }
+
+        function handleMouseDown(event) {
+            if (event.target.closest('.grid-cell')) {
+                isSelecting = true;
+                startCell = event.target.closest('.grid-cell');
+                selectedCells = [startCell];
+                startCell.classList.add('selected');
+                // Hücreyi anlık olarak yukarı kaldır
+                startCell.style.transform = 'translateY(-5px) translateZ(10px)';
+            }
+        }
+
+        function handleMouseMove(event) {
+            if (!isSelecting || !event.target.closest('.grid-cell')) return;
+
+            const currentCell = event.target.closest('.grid-cell');
+            if (currentCell && !selectedCells.includes(currentCell)) {
+                selectedCells.push(currentCell);
+                currentCell.classList.add('selected');
+                currentCell.style.transform = 'translateY(-5px) translateZ(10px)'; // Kaldırma efekti
+                highlightPath(startCell, currentCell);
+            }
+        }
+
+        function highlightPath(start, end) {
+            const sRow = parseInt(start.dataset.row);
+            const sCol = parseInt(start.dataset.col);
+            const eRow = parseInt(end.dataset.row);
+            const eCol = parseInt(end.dataset.col);
+
+            // Önceki vurguyu temizle (sadece seçilen hücreler dışında)
+            document.querySelectorAll('.grid-cell.hover').forEach(cell => {
+                if (!selectedCells.includes(cell)) {
+                    cell.classList.remove('hover');
+                    cell.style.transform = '';
+                }
+            });
+
+            // Yeni yolu vurgula
+            const cellsInPath = getCellsInPath(sRow, sCol, eRow, eCol);
+            cellsInPath.forEach(cellCoords => {
+                const cell = document.querySelector(`.grid-cell[data-row="${cellCoords.r}"][data-col="${cellCoords.c}"]`);
+                if (cell && !cell.classList.contains('selected') && !cell.classList.contains('found')) {
+                    cell.classList.add('hover');
+                    cell.style.transform = 'translateY(-2px) translateZ(5px)';
+                }
+            });
+            // Seçili hücreleri de hover olarak işaretle ki renkleri korunsun
+            selectedCells.forEach(cell => cell.classList.add('selected'));
+        }
+
+        function getCellsInPath(sR, sC, eR, eC) {
+            const cells = [];
+            const dR = Math.sign(eR - sR);
+            const dC = Math.sign(eC - sC);
+            const distR = Math.abs(eR - sR);
+            const distC = Math.abs(eC - sC);
+
+            // Sadece yatay, dikey veya çapraz ise yolu hesapla
+            if (distR === 0 || distC === 0 || distR === distC) {
+                for (let i = 0; i <= Math.max(distR, distC); i++) {
+                    cells.push({ r: sR + i * dR, c: sC + i * dC });
+                }
+            }
+            return cells;
+        }
+
+        function handleMouseUp(event) {
+            if (!isSelecting) return;
+
+            isSelecting = false;
+            // Önceki hover ve seçili durumları temizle
+            document.querySelectorAll('.grid-cell.hover, .grid-cell.selected').forEach(cell => {
+                cell.classList.remove('hover', 'selected');
+                cell.style.transform = ''; // Kaldırma efektini sıfırla
+            });
+
+            if (selectedCells.length > 0) {
+                checkSelectedWord();
+            }
+            selectedCells = [];
+            startCell = null;
+        }
+
+        function checkSelectedWord() {
+            if (selectedCells.length === 0) return;
+
+            // Seçilen hücreler düz bir çizgi oluşturuyor mu kontrol et
+            const firstCell = selectedCells[0];
+            const lastCell = selectedCells[selectedCells.length - 1];
+
+            const sR = parseInt(firstCell.dataset.row);
+            const sC = parseInt(firstCell.dataset.col);
+            const eR = parseInt(lastCell.dataset.row);
+            const eC = parseInt(lastCell.dataset.col);
+
+            const cellsOnPath = getCellsInPath(sR, sC, eR, eC);
+
+            // Eğer seçilen hücreler düz bir çizgi üzerinde değilse veya aradaki hücreler atlandıysa geçersiz say
+            if (cellsOnPath.length !== selectedCells.length ||
+                !cellsOnPath.every((coords, index) => {
+                    const cell = selectedCells[index];
+                    return parseInt(cell.dataset.row) === coords.r && parseInt(cell.dataset.col) === coords.c;
+                })
+            ) {
+                // Geçersiz seçim, kullanıcıya hata bildirimi yap
+                selectedCells.forEach(cell => {
+                    cell.classList.add('wrong');
+                    setTimeout(() => cell.classList.remove('wrong'), 500);
+                });
+                score = Math.max(0, score - 5);
+                updateScoreDisplay();
+                wrongSound.play();
+                return;
+            }
+
+            let selectedWord = selectedCells.map(cell => cell.textContent.trim()).join('');
+            let reversedWord = selectedCells.map(cell => cell.textContent.trim()).reverse().join('');
+            
+            let isFound = false;
+            let foundIndex = -1;
+
+            if (currentWords.includes(selectedWord)) {
+                isFound = true;
+                foundIndex = currentWords.indexOf(selectedWord);
+            } else if (currentWords.includes(reversedWord)) { // Tersini de kontrol et
+                isFound = true;
+                foundIndex = currentWords.indexOf(reversedWord);
+            }
+
+            if (isFound && !foundWords.includes(currentWords[foundIndex])) {
+                foundWords.push(currentWords[foundIndex]);
+                selectedCells.forEach(cell => cell.classList.add('found'));
+                score += 10;
+                correctSound.play();
+            } else {
+                selectedCells.forEach(cell => {
+                    cell.classList.add('wrong');
+                    setTimeout(() => cell.classList.remove('wrong'), 500);
+                });
+                score = Math.max(0, score - 5);
+                wrongSound.play();
+            }
+
+            updateScoreDisplay();
+            renderFoundWords();
+        }
+
+        function endGame(allLevelsCompleted = false) {
+            stopTimer();
+            let bonusScore = 0;
+            if (gameTime > 0) { // Süre bonusu sadece oyun süresi varsa verilir
+                bonusScore = gameTime > 0 ? Math.floor(1000 / gameTime) : 0; // Daha kısa sürede daha yüksek bonus
+                score += bonusScore;
+            }
+            
+            finalMessage.innerHTML = `Tebrikler, ${level-1} seviyeyi tamamladın ve <b>${score} puan</b> ile <b>${timerDisplay.textContent}</b> sürede bitirdin! Süre bonusu: ${bonusScore} puan.`;
+            playerNameInput.value = ''; // İsim girişini temizle
+            showScreen('end-screen');
+            updateScoreDisplay(); // Son puanı göster
+        }
+
+        function savePlayerScore() {
+            const playerName = playerNameInput.value.trim();
+            if (playerName === '') {
+                alert('Lütfen adınızı girin!');
+                return;
+            }
+
+            const newScore = {
+                name: playerName,
+                score: score,
+                time: gameTime,
+                date: new Date().toLocaleString('tr-TR')
+            };
+            leaderboard.push(newScore);
+            leaderboard.sort((a, b) => b.score - a.score || a.time - b.time); // Puana göre azalan, süreye göre artan
+            leaderboard = leaderboard.slice(0, 10); // İlk 10'u tut
+            localStorage.setItem('wordSearchLeaderboard', JSON.stringify(leaderboard));
+            alert('Skorunuz kaydedildi!');
+            renderLeaderboard();
+            showLeaderboard();
+        }
+
+        function loadLeaderboard() {
+            const storedLeaderboard = localStorage.getItem('wordSearchLeaderboard');
+            if (storedLeaderboard) {
+                leaderboard = JSON.parse(storedLeaderboard);
+            } else {
+                leaderboard = [];
+            }
+        }
+
+        function renderLeaderboard() {
+            leaderboardList.innerHTML = '';
+            if (leaderboard.length === 0) {
+                leaderboardList.innerHTML = '<li>Henüz skor bulunmamaktadır.</li>';
+                return;
+            }
+            leaderboard.forEach((entry, index) => {
+                const listItem = document.createElement('li');
+                const minutes = String(Math.floor(entry.time / 60)).padStart(2, '0');
+                const seconds = String(entry.time % 60).padStart(2, '0');
+                listItem.innerHTML = `
+                    <span>${index + 1}. ${entry.name}</span>
+                    <span>Puan: ${entry.score} - Süre: ${minutes}:${seconds}</span>
+                `;
+                leaderboardList.appendChild(listItem);
+            });
+        }
+
+        function showLeaderboard() {
+            loadLeaderboard(); // Güncel liderlik tablosunu yükle
+            renderLeaderboard();
+            leaderboardModal.classList.add('active');
+        }
+
+        function hideLeaderboard() {
+            leaderboardModal.classList.remove('active');
+        }
+
+        // Oyun başladığında veya sayfa yüklendiğinde
+        document.addEventListener('DOMContentLoaded', () => {
+            loadLeaderboard();
+            showScreen('start-screen');
+        });
+    </script>
+</body>
+</html>
